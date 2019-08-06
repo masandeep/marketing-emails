@@ -1,4 +1,4 @@
-# Project Title
+# Marketing-emails
 
 Online clothing mailer service - Sends marketing email to customers about clothing collection.
 
@@ -10,8 +10,8 @@ Note: In production, the application source will be copied to docker using CI to
 
 ## Install
 
-    $ git clone https://github.com/YOUR_USERNAME/PROJECT_TITLE
-    $ cd PROJECT_TITLE
+    $ git clone https://github.com/masandeep/marketing-emails
+    $ cd marketing-emails
 
 ## Configure app
 
@@ -27,38 +27,35 @@ Once docker is up, open http://localhost:3000 in browser
 
 ## Usage
 
-1. Generate a JWT token using user credentials
-    Request:
-        URL: 
-            http://localhost:3000/api/v1/user/login
-        Header:
-            application/json: application/json
-        Paylod:
-            {
-                "username": "admin",
-                "password": "password"
-            }
-    Sample Response:
+### Generate a JWT token using user credentials
+#### Request:
+##### URL: http://localhost:3000/api/v1/user/login
+##### Header: application/json: application/json
+##### Paylod:
+    {
+        "username": "admin",
+        "password": "password"
+    }
+#### Sample Response:
     {
         "success": true,
         "message": "Authentication successful!",
         "token": <token>
     }
 
-2. Send mail request to service using above token & customer information
-    Request:
-        URL: 
-            http://localhost:3000/api/v1/mailer/send
-        Header:
+### Send mail request to service using above token & customer information
+#### Request:
+##### URL: http://localhost:3000/api/v1/mailer/send
+##### Header:
             application/json: application/json
             Authorization: Bearer <token>
-        Paylod:
+##### Paylod:
             {
                 "email": <email>,
                 "name": <display name>,
-                "saleidentifier": <season> // "Winter"/"Summer/
+                "saleidentifier": <season> // "Winter" or "Summer"
             }
-    Sample Response:
+#### Sample Response:
     {
         "success": true,
         "message": "Successfully sent email"
