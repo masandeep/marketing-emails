@@ -27,35 +27,36 @@ Once docker is up, open http://localhost:3000 in browser
 
 ## Usage
 
-### Generate a JWT token using user credentials
-#### Request:
-##### URL: http://localhost:3000/api/v1/user/login
-##### Header: application/json: application/json
-##### Paylod:
-    {
-        "username": "admin",
-        "password": "password"
-    }
-#### Sample Response:
+1. Generate a JWT token using user credentials
+    * Request:
+        * URL: http://localhost:3000/api/v1/user/login
+        * Header: 
+            * application/json: application/json
+        * Paylod:
+          {
+               "username": "admin",
+               "password": "password"
+          }
+    * Response:
     {
         "success": true,
         "message": "Authentication successful!",
         "token": <token>
     }
 
-### Send mail request to service using above token & customer information
-#### Request:
-##### URL: http://localhost:3000/api/v1/mailer/send
-##### Header:
-            application/json: application/json
-            Authorization: Bearer <token>
-##### Paylod:
+2. Send mail request to service using above token & customer information
+    * Request:
+        * URL: http://localhost:3000/api/v1/mailer/send
+        * Headers: 
+            * application/json: application/json 
+            * Authorization: Bearer token
+        * Paylod:
             {
-                "email": <email>,
-                "name": <display name>,
-                "saleidentifier": <season> // "Winter" or "Summer"
+                "email": "email",
+                "name": "name",
+                "saleidentifier": "Winter"
             }
-#### Sample Response:
+     * Response:
     {
         "success": true,
         "message": "Successfully sent email"
