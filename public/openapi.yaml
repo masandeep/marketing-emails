@@ -1,0 +1,181 @@
+openapi: '3.0.0'
+info:
+  version: 0.0.1
+  title: MDB Clothings
+  description: A sample API that uses a MDB Clothings as an example to demonstrate marketing emails
+  contact:
+    name: MDB Clothings
+    email: contact@mdb.com
+    url: https://www.huddl.ai
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0.html
+servers:
+  - url: /api/v1/
+  - url: http://{name}:{port}/api/{version}
+    variables:
+      name:
+        default: localhost
+      port:
+        default: '8080'
+      version:
+        default: v1
+paths:
+  /user/login:
+    post:
+      description: Generates a JWT for given login credentials
+      operationId: generateToken
+      requestBody:
+        description: User credentials
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserCredentials'
+      responses:
+        '200':
+          description: Succesfully sent email
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/JWTResponse'
+        '400':
+          description: Invalid request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'                
+        '401':
+          description: Invalid credentials
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FailedResponse'
+        '415':
+          description: Incorrect MIME type
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'                        
+  /mailer/send:
+    post:
+      description: Sends email to customers based on sale indentifier
+      operationId: sendMail
+      security:
+        - bearerAuth: []
+      requestBody:
+        description: Customer information
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CustomerInfo'
+      responses:
+        '200':
+          description: Mail sent successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessResponse'
+        '400':
+          description: Invalid request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          description: Invalid credentials
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FailedResponse'                
+        '415':
+          description: Incorrect MIME type
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'                
+        '500':
+          description: Failed to send email
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FailedResponse'                 
+
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT 
+  schemas:
+    UserCredentials:
+      required:
+        - username
+        - password
+      properties:
+        username:
+          type: string
+          minLength: 3
+          maxLength: 20
+        password:
+          type: string
+          minLength: 3
+          maxLength: 20
+    CustomerInfo:
+      required:
+        - email
+        - name
+        - saleidentifier
+      properties:
+        email:
+          type: string
+          format: email
+        name:
+          type: string
+          minLength: 3
+          maxLength: 20
+        saleidentifier:
+           type: string
+           enum:
+              - Winter
+              - Summer
+    SuccessResponse:
+      properties:
+        success:
+          type: boolean
+        message:
+          type: string
+    FailedResponse:
+      properties:
+        success:
+          type: boolean
+          default: false
+        message:
+          type: string          
+    ErrorResponse:
+      properties:
+        success:
+          type: boolean
+          default: false
+        message:
+          type: string
+        errors:
+          type: array
+          items:
+            type: object
+            properties:
+              path:
+                type: string       
+              message:
+                type: string   
+              errorCode:
+                type: string
+    JWTResponse:
+      allOf:
+        - $ref: '#/components/schemas/SuccessResponse'
+        - required:
+            - token
+          properties:
+            token:
+              type: string        

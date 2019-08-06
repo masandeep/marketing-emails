@@ -1,0 +1,35 @@
+{
+    "banner": {
+        "summer": "https://mdbootstrap.com/img/Photos/Others/img2.jpg",
+        "winter": "https://mdbootstrap.com/img/Photos/Others/img28.jpg"
+    },
+    "items": [{
+            "category": "summer",
+            "name": "Hat",
+            "price": "50",
+            "discount": "10",
+            "image": "https://mdbootstrap.com/img/Photos/Horizontal/E-commerce/Products/img%20(11).jpg"
+        },
+        {
+            "category": "summer",
+            "name": "Shoes",
+            "price": "25",
+            "discount": "15",
+            "image": "https://mdbootstrap.com/img/Photos/Horizontal/E-commerce/Products/img%20(16).jpg"
+        },
+        {
+            "category": "winter",
+            "name": "Jacket",
+            "price": "150",
+            "discount": "15",
+            "image": "https://mdbootstrap.com/img/Photos/Horizontal/E-commerce/Products/img%20(13).jpg"
+        },
+        {
+            "category": "winter",
+            "name": "Shoes",
+            "price": "55",
+            "discount": "25",
+            "image": "https://mdbootstrap.com/img/Photos/Horizontal/E-commerce/Products/img%20(18).jpg"
+        }
+    ]
+}
